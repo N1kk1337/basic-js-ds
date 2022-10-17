@@ -40,9 +40,44 @@ class BinarySearchTree {
     }
   }
 
-  has(data) {}
+  has(data) {
+    return this.hasData(data, this.rootNode);
+  }
+  hasData(data, node) {
+    if (data === node?.data) return true;
 
-  find(data) {}
+    if (data > node?.data && data?.right === null) {
+      return false;
+    } else if (data > node?.data) {
+      return this.hasData(data, node.right);
+    }
+    if (data < node?.data && data?.left === null) {
+      return false;
+    } else if (data < node?.data) {
+      return this.hasData(data, node.left);
+    }
+  }
+
+  find(data) {
+    return this.hasNodeWithData(data, this.rootNode);
+  }
+  hasNodeWithData(data, node) {
+    if (data === node?.data) {
+      return node;
+    }
+
+    if (data > node?.data && data?.right === null) {
+      return null;
+    } else if (data > node?.data) {
+      return this.hasNodeWithData(data, node.right);
+    }
+
+    if (data < node?.data && data?.left === null) {
+      return null;
+    } else if (data < node?.data) {
+      return this.hasNodeWithData(data, node.left);
+    }
+  }
 
   remove(data) {}
 
@@ -68,6 +103,18 @@ class BinarySearchTree {
     }
   }
 }
+
+const tree = new BinarySearchTree();
+tree.add(2);
+tree.add(7);
+tree.add(1);
+tree.add(8);
+tree.add(4);
+tree.add(32);
+tree.add(12);
+tree.add(14);
+
+console.log(tree.find(8));
 
 module.exports = {
   BinarySearchTree,
